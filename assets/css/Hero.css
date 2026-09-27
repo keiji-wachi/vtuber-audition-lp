@@ -1,0 +1,918 @@
+/**
+ * Hero / First View
+ *
+ * LP訪問直後に表示されるメインビジュアル。
+ *
+ * 背景画像そのものは動かさず、
+ * コピー・CTAのみ初回表示時に
+ * 軽いフェードアップを適用する。
+ */
+
+
+/* ==================================================
+   Hero
+================================================== */
+
+.hero {
+    position: relative;
+
+    min-height:
+        calc(100vh - var(--header-height));
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    overflow:
+        hidden;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(5, 5, 5, 0.96) 0%,
+            rgba(5, 5, 5, 0.90) 30%,
+            rgba(5, 5, 5, 0.72) 48%,
+            rgba(5, 5, 5, 0.40) 68%,
+            rgba(5, 5, 5, 0.10) 100%
+        ),
+        url("../images/hero-drum.jpg");
+
+    background-size:
+        cover;
+
+    /*
+     * ドラムを右側に見せる。
+     */
+    background-position:
+        65% center;
+
+    background-repeat:
+        no-repeat;
+}
+
+
+/* ==================================================
+   Overlay
+================================================== */
+
+.hero__overlay {
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.02) 45%,
+            rgba(0, 0, 0, 0.22) 72%,
+            rgba(0, 0, 0, 0.72) 100%
+        );
+
+    pointer-events:
+        none;
+}
+
+
+/* ==================================================
+   Hero Inner
+================================================== */
+
+.hero__inner {
+    position:
+        relative;
+
+    z-index:
+        1;
+
+    width:
+        min(
+            calc(100% - 48px),
+            var(--content-width)
+        );
+
+    margin:
+        0 auto;
+
+    padding:
+        96px 0
+        120px;
+}
+
+
+.hero__content {
+    width:
+        min(
+            100%,
+            650px
+        );
+}
+
+
+/* ==================================================
+   Initial Animation
+================================================== */
+
+/*
+ * HeroはスクロールRevealではなく、
+ * ページ表示時に一度だけアニメーションする。
+ */
+.hero__animate {
+    opacity:
+        0;
+
+    transform:
+        translateY(12px);
+
+    animation:
+        hero-fade-up
+        0.6s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        )
+        forwards;
+}
+
+
+/*
+ * 上から順番に表示する。
+ */
+.hero__animate--1 {
+    animation-delay:
+        0.05s;
+}
+
+
+.hero__animate--2 {
+    animation-delay:
+        0.15s;
+}
+
+
+.hero__animate--3 {
+    animation-delay:
+        0.25s;
+}
+
+
+.hero__animate--4 {
+    animation-delay:
+        0.35s;
+}
+
+
+.hero__animate--5 {
+    animation-delay:
+        0.45s;
+}
+
+
+.hero__animate--6 {
+    animation-delay:
+        0.55s;
+}
+
+
+@keyframes hero-fade-up {
+
+    from {
+        opacity:
+            0;
+
+        transform:
+            translateY(12px);
+    }
+
+    to {
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* ==================================================
+   Badge
+================================================== */
+
+.hero__badge {
+    width:
+        fit-content;
+
+    margin:
+        0 0 26px;
+
+    padding:
+        8px 14px;
+
+    border:
+        1px solid
+        rgba(255, 212, 0, 0.5);
+
+    background:
+        rgba(0, 0, 0, 0.28);
+
+    color:
+        var(--color-label);
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+
+    backdrop-filter:
+        blur(4px);
+}
+
+
+.hero__badge-dot {
+    display:
+        inline-block;
+
+    width:
+        8px;
+
+    height:
+        8px;
+
+    margin-right:
+        8px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--color-label);
+
+    box-shadow:
+        0 0 10px
+        rgba(255, 212, 0, 0.3);
+}
+
+
+/* ==================================================
+   Title
+================================================== */
+
+.hero__title {
+    margin:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    width:
+        fit-content;
+
+    font-family:
+        Impact,
+        "Arial Black",
+        sans-serif;
+
+    font-size:
+        clamp(
+            64px,
+            7vw,
+            104px
+        );
+
+    line-height:
+        0.88;
+
+    letter-spacing:
+        0.01em;
+
+    text-shadow:
+        0 4px 24px
+        rgba(0, 0, 0, 0.35);
+}
+
+
+.hero__title-accent {
+    color:
+        var(--color-accent);
+
+    text-shadow:
+        0 0 28px
+        rgba(242, 56, 0, 0.08);
+}
+
+
+/* ==================================================
+   Lead Text
+================================================== */
+
+.hero__lead {
+    margin:
+        38px 0 0;
+
+    max-width:
+        580px;
+
+    color:
+        var(--color-text);
+
+    font-size:
+        clamp(
+            17px,
+            1.6vw,
+            22px
+        );
+
+    font-weight:
+        700;
+
+    line-height:
+        1.8;
+
+    text-shadow:
+        0 2px 12px
+        rgba(0, 0, 0, 0.55);
+}
+
+
+/* ==================================================
+   Sub Text
+================================================== */
+
+.hero__subtext {
+    margin:
+        18px 0 0;
+
+    max-width:
+        560px;
+
+    color:
+        #b5b5b5;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.8;
+
+    text-shadow:
+        0 2px 10px
+        rgba(0, 0, 0, 0.55);
+}
+
+
+/* ==================================================
+   Actions
+================================================== */
+
+.hero__actions {
+    margin-top:
+        36px;
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        16px;
+}
+
+
+/*
+ * Hero内CTAのSVG配置。
+ */
+.hero__actions .button {
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        10px;
+}
+
+
+/* ==================================================
+   Button Icons
+================================================== */
+
+.hero__button-icon {
+    width:
+        20px;
+
+    height:
+        20px;
+
+    flex-shrink:
+        0;
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+.hero__arrow-icon {
+    width:
+        17px;
+
+    height:
+        17px;
+
+    flex-shrink:
+        0;
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+@media (hover: hover) {
+
+    .hero__actions
+    .button--primary:hover
+    .hero__button-icon {
+        transform:
+            rotate(-6deg)
+            scale(1.06);
+    }
+
+
+    .hero__actions
+    .button--secondary:hover
+    .hero__arrow-icon {
+        transform:
+            translateX(3px);
+    }
+
+}
+
+
+/* ==================================================
+   Benefits
+================================================== */
+
+.hero__benefits {
+    margin:
+        28px 0 0;
+
+    padding:
+        0;
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        24px;
+
+    list-style:
+        none;
+
+    color:
+        #d0d0d0;
+
+    font-size:
+        13px;
+
+    text-shadow:
+        0 2px 8px
+        rgba(0, 0, 0, 0.5);
+}
+
+
+.hero__benefits li {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        6px;
+}
+
+
+.hero__benefits svg {
+    width:
+        15px;
+
+    height:
+        15px;
+
+    flex-shrink:
+        0;
+
+    color:
+        var(--color-accent);
+}
+
+
+/* ==================================================
+   Scroll Indicator
+================================================== */
+
+.hero__scroll {
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    bottom:
+        16px;
+
+    z-index:
+        1;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    color:
+        #777777;
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        0.12em;
+}
+
+
+/*
+ * Scrollだけは中央寄せのtransformを
+ * 維持する必要があるので、
+ * Hero共通アニメーションを上書きする。
+ */
+.hero__scroll.hero__animate {
+    opacity:
+        0;
+
+    transform:
+        translateX(-50%)
+        translateY(6px);
+
+    animation:
+        hero-scroll-fade
+        0.6s
+        ease
+        0.65s
+        forwards;
+}
+
+
+@keyframes hero-scroll-fade {
+
+    from {
+        opacity:
+            0;
+
+        transform:
+            translateX(-50%)
+            translateY(6px);
+    }
+
+    to {
+        opacity:
+            1;
+
+        transform:
+            translateX(-50%)
+            translateY(0);
+    }
+
+}
+
+
+.hero__scroll-line {
+    width:
+        1px;
+
+    height:
+        32px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #777777,
+            #333333
+        );
+}
+
+
+/* ==================================================
+   Tablet
+================================================== */
+
+@media (max-width: 900px) {
+
+    .hero {
+        min-height:
+            800px;
+
+        background-image:
+            linear-gradient(
+                90deg,
+                rgba(5, 5, 5, 0.95) 0%,
+                rgba(5, 5, 5, 0.80) 48%,
+                rgba(5, 5, 5, 0.40) 72%,
+                rgba(5, 5, 5, 0.18) 100%
+            ),
+            url("../images/hero-drum.jpg");
+
+        background-position:
+            68% center;
+    }
+
+
+    .hero__inner {
+        padding-top:
+            100px;
+    }
+
+
+    .hero__content {
+        width:
+            min(
+                100%,
+                590px
+            );
+    }
+
+}
+
+
+/* ==================================================
+   Smartphone
+================================================== */
+
+@media (max-width: 600px) {
+
+    .hero {
+        min-height:
+            680px;
+
+        align-items:
+            flex-end;
+
+        background-image:
+            linear-gradient(
+                180deg,
+                rgba(5, 5, 5, 0.10) 0%,
+                rgba(5, 5, 5, 0.26) 25%,
+                rgba(5, 5, 5, 0.68) 52%,
+                rgba(5, 5, 5, 0.96) 76%,
+                rgba(5, 5, 5, 1) 100%
+            ),
+            url("../images/hero-drum.jpg");
+
+        background-position:
+            62% center;
+
+        background-size:
+            cover;
+    }
+
+
+    /* Overlay */
+
+    .hero__overlay {
+        background:
+            linear-gradient(
+                180deg,
+                transparent 38%,
+                rgba(0, 0, 0, 0.12) 58%,
+                rgba(0, 0, 0, 0.62) 100%
+            );
+    }
+
+
+    /* Inner */
+
+    .hero__inner {
+        width:
+            min(
+                calc(100% - 32px),
+                var(--content-width)
+            );
+
+        padding:
+            110px 0
+            56px;
+    }
+
+
+    .hero__content {
+        width:
+            100%;
+    }
+
+
+    /* Badge */
+
+    .hero__badge {
+        margin-bottom:
+            18px;
+
+        padding:
+            7px 12px;
+
+        font-size:
+            11px;
+    }
+
+
+    .hero__badge-dot {
+        width:
+            7px;
+
+        height:
+            7px;
+    }
+
+
+    /* Title */
+
+    .hero__title {
+        font-size:
+            clamp(
+                52px,
+                16vw,
+                70px
+            );
+
+        line-height:
+            0.9;
+    }
+
+
+    /* Lead */
+
+    .hero__lead {
+        margin-top:
+            22px;
+
+        font-size:
+            15px;
+
+        line-height:
+            1.75;
+    }
+
+
+    .hero__lead br {
+        display:
+            none;
+    }
+
+
+    /* Sub Text */
+
+    .hero__subtext {
+        margin-top:
+            12px;
+
+        font-size:
+            11px;
+
+        line-height:
+            1.7;
+    }
+
+
+    /* Actions */
+
+    .hero__actions {
+        margin-top:
+            24px;
+
+        flex-direction:
+            column;
+
+        gap:
+            10px;
+    }
+
+
+    .hero__actions .button {
+        width:
+            100%;
+    }
+
+
+    .hero__button-icon {
+        width:
+            18px;
+
+        height:
+            18px;
+    }
+
+
+    /* Benefits */
+
+    .hero__benefits {
+        margin-top:
+            18px;
+
+        gap:
+            6px 12px;
+
+        font-size:
+            11px;
+    }
+
+
+    .hero__benefits svg {
+        width:
+            13px;
+
+        height:
+            13px;
+    }
+
+
+    /* Scroll */
+
+    .hero__scroll {
+        display:
+            none;
+    }
+
+}
+
+
+/* ==================================================
+   Reduced Motion
+================================================== */
+
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+
+    .hero__animate,
+    .hero__scroll.hero__animate {
+        opacity:
+            1;
+
+        transform:
+            none;
+
+        animation:
+            none;
+    }
+
+
+    /*
+     * Scrollは中央寄せだけ残す。
+     */
+    .hero__scroll.hero__animate {
+        transform:
+            translateX(-50%);
+    }
+
+
+    .hero__button-icon,
+    .hero__arrow-icon {
+        transition:
+            none;
+    }
+
+
+    .hero__actions
+    .button:hover
+    .hero__button-icon,
+    .hero__actions
+    .button:hover
+    .hero__arrow-icon {
+        transform:
+            none;
+    }
+
+}

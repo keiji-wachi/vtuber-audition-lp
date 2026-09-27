@@ -1,0 +1,1888 @@
+/**
+ * Contact
+ *
+ * 無料体験・相談フォームセクション。
+ *
+ * Contact Form 7を送信基盤として使用し、
+ * JavaScriptで1フォーム5STEP表示にしている。
+ *
+ * STEP1〜4のcheckbox / radioは
+ * ネイティブUIを視覚的に隠し、
+ * カード自体を選択UIとして使用する。
+ *
+ * STEP1アイコンはCF7へSVGを直接記述せず、
+ * CSS Maskを使用してSVG表示する。
+ *
+ * 個人情報同意用checkboxのみ
+ * 明示的なチェックUIを残す。
+ */
+
+
+/* ==================================================
+   Contact Section
+================================================== */
+
+.contact {
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(242, 56, 0, 0.06),
+            transparent 35%
+        ),
+        var(--color-bg);
+}
+
+
+/* ==================================================
+   Form Container
+================================================== */
+
+.contact-form {
+    width: min(100%, 720px);
+
+    margin: 0 auto;
+
+    padding: 30px 32px;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    background:
+        #0d0d0d;
+
+    box-shadow:
+        0 30px 80px
+        rgba(0, 0, 0, 0.25);
+}
+
+
+/*
+ * JavaScriptでSTEP1〜5を
+ * hidden属性によって切り替える。
+ */
+.contact-form [hidden] {
+    display: none !important;
+}
+
+
+/* ==================================================
+   CF7 Auto Formatting Reset
+================================================== */
+
+.multi-step-form br {
+    display: none;
+}
+
+
+.multi-step-form p:not([class]) {
+    margin: 0;
+    padding: 0;
+}
+
+
+.multi-step-form p:not([class]):empty {
+    display: none;
+}
+
+
+/* ==================================================
+   CF7 Reset
+================================================== */
+
+.contact-form
+.wpcf7-form {
+    margin: 0;
+}
+
+
+.contact-form
+.wpcf7-list-item {
+    margin: 0;
+}
+
+
+.contact-form
+.wpcf7-form-control-wrap {
+    display: block;
+
+    width: 100%;
+}
+
+
+/* ==================================================
+   Multi Step
+================================================== */
+
+.multi-step-form {
+    min-height: 0;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ==================================================
+   Progress
+================================================== */
+
+.contact-progress {
+    margin:
+        0 0 24px;
+}
+
+
+.contact-progress__meta {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 10px;
+}
+
+
+.contact-progress__step {
+    color:
+        var(--color-muted);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+}
+
+
+.contact-progress__name {
+    color:
+        var(--color-accent);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* ==================================================
+   Progress Bar
+================================================== */
+
+.contact-progress__bar {
+    position: relative;
+
+    width: 100%;
+    height: 3px;
+
+    overflow: hidden;
+
+    background:
+        #252525;
+}
+
+
+.contact-progress__current {
+    display: block;
+
+    height: 100%;
+
+    background:
+        var(--color-accent);
+
+    transition:
+        width 0.3s ease;
+}
+
+
+/* ==================================================
+   Progress Steps
+================================================== */
+
+.contact-progress__steps {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 8px;
+
+    margin-top: 7px;
+}
+
+
+.contact-progress__steps span {
+    height: 2px;
+
+    background:
+        #252525;
+
+    transition:
+        background 0.3s ease;
+}
+
+
+.contact-progress__steps
+span.is-active {
+    background:
+        var(--color-accent);
+}
+
+
+/* ==================================================
+   Step
+================================================== */
+
+.contact-step {
+    min-height: 0;
+
+    margin: 0;
+    padding: 0;
+
+    animation:
+        contact-step-in
+        0.28s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+
+
+.contact-progress
++
+.contact-step {
+    margin-top: 0;
+}
+
+
+@keyframes contact-step-in {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(8px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(0);
+    }
+
+}
+
+
+/* ==================================================
+   Step Heading
+================================================== */
+
+.contact-step__heading {
+    margin:
+        0 0 20px;
+
+    padding: 0;
+}
+
+
+.contact-step__number {
+    margin:
+        0 0 7px;
+
+    color:
+        var(--color-accent);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+}
+
+
+.contact-step__title {
+    margin: 0;
+
+    color:
+        var(--color-text);
+
+    font-size: 23px;
+
+    line-height: 1.4;
+}
+
+
+.contact-step__description {
+    margin:
+        6px 0 0;
+
+    color:
+        var(--color-muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* ==================================================
+   STEP1
+   Consultation Grid
+================================================== */
+
+.contact-options {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 10px;
+}
+
+
+/* ==================================================
+   STEP1
+   Consultation Card
+================================================== */
+
+.contact-choice {
+    position: relative;
+
+    min-height: 110px;
+
+    padding: 16px;
+
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    background:
+        #101010;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+@media (hover: hover) {
+
+    .contact-choice:hover {
+        border-color:
+            rgba(
+                255,
+                255,
+                255,
+                0.20
+            );
+
+        background:
+            #121212;
+
+        transform:
+            translateY(-2px);
+
+        box-shadow:
+            0 12px 26px
+            rgba(0, 0, 0, 0.18);
+    }
+
+}
+
+
+/* ==================================================
+   STEP1
+   Selected
+================================================== */
+
+.contact-choice:has(
+    input[type="checkbox"]:checked
+) {
+    border-color:
+        var(--color-accent);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(242, 56, 0, 0.11),
+            rgba(242, 56, 0, 0.025)
+        ),
+        #101010;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(242, 56, 0, 0.16);
+}
+
+
+/* ==================================================
+   STEP1
+   Custom Check Indicator
+================================================== */
+
+.contact-choice::after {
+    content: "✓";
+
+    position: absolute;
+
+    top: 14px;
+    right: 14px;
+
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.14
+        );
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+
+    color:
+        transparent;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.contact-choice:has(
+    input[type="checkbox"]:checked
+)::after {
+    border-color:
+        var(--color-accent);
+
+    background:
+        var(--color-accent);
+
+    color:
+        #ffffff;
+
+    transform:
+        scale(1.05);
+}
+
+
+/* ==================================================
+   STEP1
+   Icon Container
+================================================== */
+
+.contact-choice__icon {
+    position: relative;
+
+    width: 42px;
+    height: 42px;
+
+    margin-bottom: 10px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(242, 56, 0, 0.25);
+
+    background:
+        rgba(242, 56, 0, 0.055);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/*
+ * SVG本体。
+ *
+ * 各modifierクラスで
+ * --contact-iconへSVG Maskを設定する。
+ *
+ * background-colorにはCSS変数が使えるため、
+ * SVGファイル自体へ色をハードコードする必要がない。
+ */
+.contact-choice__icon::before {
+    content: "";
+
+    width: 24px;
+    height: 24px;
+
+    display: block;
+
+    background:
+        var(--color-accent);
+
+    -webkit-mask-image:
+        var(--contact-icon);
+
+    mask-image:
+        var(--contact-icon);
+
+    -webkit-mask-repeat:
+        no-repeat;
+
+    mask-repeat:
+        no-repeat;
+
+    -webkit-mask-position:
+        center;
+
+    mask-position:
+        center;
+
+    -webkit-mask-size:
+        contain;
+
+    mask-size:
+        contain;
+}
+
+
+/*
+ * 選択時はアイコン側も少し強調する。
+ */
+.contact-choice:has(
+    input[type="checkbox"]:checked
+)
+.contact-choice__icon {
+    border-color:
+        rgba(242, 56, 0, 0.65);
+
+    background:
+        rgba(242, 56, 0, 0.12);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* ==================================================
+   STEP1 SVG Icons
+================================================== */
+
+/*
+ * Drum
+ * 無料体験
+ */
+.contact-choice__icon--trial {
+    --contact-icon:
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cellipse%20cx%3D%2212%22%20cy%3D%228%22%20rx%3D%227%22%20ry%3D%223%22/%3E%3Cpath%20d%3D%22M5%208v7c0%201.7%203.1%203%207%203s7-1.3%207-3V8%22/%3E%3Cpath%20d%3D%22M8%2010v6M16%2010v6M7%203l4%203M17%203l-4%203%22/%3E%3C/svg%3E");
+}
+
+
+/*
+ * Target
+ * 初心者
+ */
+.contact-choice__icon--beginner {
+    --contact-icon:
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%228%22/%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%224%22/%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%221%22/%3E%3Cpath%20d%3D%22M16%208l5-5M17%203h4v4%22/%3E%3C/svg%3E");
+}
+
+
+/*
+ * Trending Up
+ * 上達・強化
+ */
+.contact-choice__icon--improve {
+    --contact-icon:
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M3%2017l6-6%204%204%208-9%22/%3E%3Cpath%20d%3D%22M15%206h6v6%22/%3E%3C/svg%3E");
+}
+
+
+/*
+ * Guitar
+ * バンド演奏
+ */
+.contact-choice__icon--band {
+    --contact-icon:
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M14%206l4-4%204%204-4%204%22/%3E%3Cpath%20d%3D%22M16%208l-5%205%22/%3E%3Cpath%20d%3D%22M12%2012c-2-2-5-2-7%200s-2%205%200%207%205%202%207%200%202-5%200-7z%22/%3E%3Ccircle%20cx%3D%228.5%22%20cy%3D%2215.5%22%20r%3D%221.5%22/%3E%3C/svg%3E");
+}
+
+
+/*
+ * Music
+ * 社会人・趣味
+ */
+.contact-choice__icon--hobby {
+    --contact-icon:
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M9%2018V5l12-2v13%22/%3E%3Ccircle%20cx%3D%226%22%20cy%3D%2218%22%20r%3D%223%22/%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%2216%22%20r%3D%223%22/%3E%3C/svg%3E");
+}
+
+
+/*
+ * Baby
+ * お子様レッスン
+ */
+.contact-choice__icon--kids {
+    --contact-icon:
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2210%22%20r%3D%226%22/%3E%3Cpath%20d%3D%22M9%209h.01M15%209h.01M10%2013c1%201%203%201%204%200%22/%3E%3Cpath%20d%3D%22M9%204c0-2%202-3%203-1%22/%3E%3Cpath%20d%3D%22M7%2016l-2%204M17%2016l2%204M9%2016v5M15%2016v5%22/%3E%3C/svg%3E");
+}
+
+
+/* ==================================================
+   STEP1 CF7 Wrapper
+================================================== */
+
+.contact-choice
+.wpcf7-form-control-wrap {
+    width: auto;
+}
+
+
+/* ==================================================
+   STEP1 Label
+================================================== */
+
+/*
+ * CF7のwrapperはレイアウト上の基準にせず、
+ * .contact-choice をクリック領域の基準にする。
+ */
+.contact-choice
+.wpcf7-form-control-wrap,
+.contact-choice
+.wpcf7-form-control,
+.contact-choice
+.wpcf7-list-item {
+    position: static;
+}
+
+
+.contact-choice
+.wpcf7-list-item label {
+    position: static;
+
+    display: flex;
+
+    align-items: center;
+
+    cursor: pointer;
+}
+
+
+/*
+ * labelの透明レイヤーをカード全体へ広げる。
+ *
+ * これにより、
+ * アイコン・タイトル・説明文・余白を含め、
+ * カード内のどこをクリックしても
+ * checkboxを切り替えられる。
+ */
+.contact-choice
+.wpcf7-list-item
+label::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 10;
+
+    display: block;
+
+    background: transparent;
+
+    cursor: pointer;
+}
+
+
+/*
+ * 装飾要素がクリックを奪わないようにする。
+ * 実際のクリック判定は上のlabel::beforeへ渡す。
+ */
+.contact-choice__icon,
+.contact-choice small,
+.contact-choice::after,
+.contact-choice
+.wpcf7-list-item-label {
+    pointer-events: none;
+}
+
+
+/* ==================================================
+   STEP1 Checkbox
+================================================== */
+
+/*
+ * inputはCF7送信・keyboard操作のため
+ * DOMに残す。
+ *
+ * 視覚的にのみ隠す。
+ */
+.contact-choice
+input[type="checkbox"] {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+
+    clip:
+        rect(
+            0,
+            0,
+            0,
+            0
+        );
+
+    clip-path:
+        inset(50%);
+
+    white-space: nowrap;
+
+    border: 0;
+}
+
+
+/* ==================================================
+   STEP1 Text
+================================================== */
+
+.contact-choice
+.wpcf7-list-item-label {
+    position: relative;
+
+    z-index: 1;
+
+    padding-right: 32px;
+
+    color:
+        var(--color-text);
+
+    font-size: 14px;
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+
+.contact-choice small {
+    position: relative;
+
+    z-index: 1;
+
+    margin-top: 6px;
+
+    padding-right: 32px;
+
+    color:
+        var(--color-muted);
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* ==================================================
+   STEP1 Keyboard Focus
+================================================== */
+
+.contact-choice:has(
+    input:focus-visible
+) {
+    outline:
+        2px solid
+        var(--color-label);
+
+    outline-offset:
+        2px;
+}
+
+
+/* ==================================================
+   Field
+================================================== */
+
+.contact-field {
+    margin-top: 16px;
+}
+
+
+.contact-field__label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color:
+        #d0d0d0;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+
+/* ==================================================
+   Required / Optional
+================================================== */
+
+.contact-field__label span {
+    margin-left: 5px;
+
+    color:
+        var(--color-muted);
+
+    font-size: 10px;
+    font-weight: 400;
+}
+
+
+.contact-field__label
+.required {
+    color:
+        var(--color-accent);
+}
+
+
+/* ==================================================
+   Help Text
+================================================== */
+
+.contact-field__help {
+    margin:
+        5px 0 0;
+
+    color:
+        #777777;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* ==================================================
+   Input
+================================================== */
+
+.contact-input {
+    width: 100%;
+    height: 46px;
+
+    padding:
+        0 14px;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    border-radius: 0;
+
+    outline: none;
+
+    background:
+        #151515;
+
+    color:
+        var(--color-text);
+
+    font: inherit;
+    font-size: 13px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.contact-input::placeholder {
+    color:
+        #666666;
+}
+
+
+.contact-input:focus {
+    border-color:
+        var(--color-accent);
+
+    background:
+        #181818;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(242, 56, 0, 0.08);
+}
+
+
+/* ==================================================
+   Textarea
+================================================== */
+
+.contact-field__textarea {
+    width: 100%;
+
+    height: 96px;
+    min-height: 96px;
+    max-height: 180px;
+
+    padding:
+        12px 14px;
+
+    resize: vertical;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    border-radius: 0;
+
+    outline: none;
+
+    background:
+        #151515;
+
+    color:
+        var(--color-text);
+
+    font: inherit;
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.contact-field__textarea::placeholder {
+    color:
+        #666666;
+}
+
+
+.contact-field__textarea:focus {
+    border-color:
+        var(--color-accent);
+
+    background:
+        #181818;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(242, 56, 0, 0.08);
+}
+
+
+/* ==================================================
+   Select
+================================================== */
+
+.contact-select {
+    width: 100%;
+    height: 46px;
+
+    padding:
+        0 40px
+        0 14px;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    border-radius: 0;
+
+    outline: none;
+
+    background-color:
+        #151515;
+
+    color:
+        var(--color-text);
+
+    font: inherit;
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.contact-select:focus {
+    border-color:
+        var(--color-accent);
+
+    background-color:
+        #181818;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(242, 56, 0, 0.08);
+}
+
+
+/* ==================================================
+   Radio Group
+================================================== */
+
+.contact-radio-group {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 8px;
+}
+
+
+/*
+ * Contact Form 7はradioを
+ *
+ * .wpcf7-form-control-wrap
+ *   └ .wpcf7-form-control
+ *       └ .wpcf7-list-item
+ *
+ * のようにラップして出力する。
+ *
+ * wrapperをGridの1要素として扱うと、
+ * 選択肢全体が左1列へ寄ってしまうため、
+ * 中間wrapperをdisplay: contentsにして
+ * 各list-itemを直接Gridへ参加させる。
+ */
+.contact-radio-group
+.wpcf7-form-control-wrap,
+.contact-radio-group
+.wpcf7-form-control {
+    display: contents;
+}
+
+
+.contact-radio-group
+.wpcf7-list-item {
+    display: block;
+
+    min-width: 0;
+}
+
+
+/*
+ * PC / Tabletでは2列表示。
+ *
+ * 選択肢が奇数個の場合、
+ * 最後の1件だけ横幅いっぱいに広げる。
+ *
+ * STEP2 : 5件
+ * STEP3 : 5件
+ * STEP4 : 3件
+ *
+ * STEP5の連絡方法は2件なので
+ * 通常の2列表示になる。
+ */
+@media (min-width: 601px) {
+
+    .contact-radio-group
+    .wpcf7-list-item:last-child:nth-child(odd) {
+        grid-column:
+            1 / -1;
+    }
+
+}
+
+
+/* ==================================================
+   Radio Card
+================================================== */
+
+.contact-radio-group
+.wpcf7-list-item label {
+    position: relative;
+
+    min-height: 52px;
+
+    padding:
+        12px 46px
+        12px 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    background:
+        #101010;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+@media (hover: hover) {
+
+    .contact-radio-group
+    .wpcf7-list-item
+    label:hover {
+        border-color:
+            rgba(
+                255,
+                255,
+                255,
+                0.20
+            );
+
+        background:
+            #121212;
+
+        transform:
+            translateY(-1px);
+    }
+
+}
+
+
+/* ==================================================
+   Radio Input
+================================================== */
+
+.contact-radio-group
+input[type="radio"] {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+
+    clip:
+        rect(
+            0,
+            0,
+            0,
+            0
+        );
+
+    clip-path:
+        inset(50%);
+
+    white-space: nowrap;
+
+    border: 0;
+}
+
+
+/* ==================================================
+   Radio Indicator
+================================================== */
+
+.contact-radio-group
+.wpcf7-list-item
+label::after {
+    content: "✓";
+
+    position: absolute;
+
+    top: 50%;
+    right: 14px;
+
+    width: 22px;
+    height: 22px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.14
+        );
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+
+    color:
+        transparent;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    transform:
+        translateY(-50%);
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+/* ==================================================
+   Radio Selected
+================================================== */
+
+.contact-radio-group
+.wpcf7-list-item:has(
+    input[type="radio"]:checked
+)
+label {
+    border-color:
+        var(--color-accent);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(242, 56, 0, 0.10),
+            rgba(242, 56, 0, 0.025)
+        ),
+        #101010;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(242, 56, 0, 0.16);
+}
+
+
+.contact-radio-group
+.wpcf7-list-item:has(
+    input[type="radio"]:checked
+)
+label::after {
+    border-color:
+        var(--color-accent);
+
+    background:
+        var(--color-accent);
+
+    color:
+        #ffffff;
+}
+
+
+/* ==================================================
+   Radio Text
+================================================== */
+
+.contact-radio-group
+.wpcf7-list-item-label {
+    color:
+        var(--color-text);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+/* ==================================================
+   Radio Keyboard Focus
+================================================== */
+
+.contact-radio-group
+.wpcf7-list-item:has(
+    input:focus-visible
+)
+label {
+    outline:
+        2px solid
+        var(--color-label);
+
+    outline-offset:
+        2px;
+}
+
+
+/* ==================================================
+   Privacy Acceptance
+================================================== */
+
+/*
+ * 個人情報同意だけは
+ * checkboxを視覚的に残す。
+ */
+.contact-field
+.wpcf7-acceptance
+.wpcf7-list-item label {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    cursor: pointer;
+}
+
+
+.contact-field
+.wpcf7-acceptance
+input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+
+    margin-top: 2px;
+
+    flex-shrink: 0;
+
+    accent-color:
+        var(--color-accent);
+
+    cursor: pointer;
+}
+
+
+.contact-field
+.wpcf7-acceptance
+.wpcf7-list-item-label {
+    color:
+        #c8c8c8;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* ==================================================
+   Turnstile
+================================================== */
+
+.contact-turnstile {
+    margin-top: 18px;
+}
+
+
+.contact-turnstile
+.cf-turnstile {
+    margin: 0;
+}
+
+
+.contact-form
+.cf-turnstile {
+    max-width: 100%;
+}
+
+
+/* ==================================================
+   JavaScript Validation
+================================================== */
+
+.contact-field-error {
+    margin:
+        6px 0 0;
+
+    color:
+        #ff6245;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+/* ==================================================
+   CF7 Validation
+================================================== */
+
+.contact-form
+.wpcf7-not-valid-tip {
+    margin-top: 6px;
+
+    color:
+        #ff6245;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+.contact-form
+.wpcf7-not-valid {
+    border-color:
+        #ff6245;
+}
+
+
+/* ==================================================
+   Actions
+================================================== */
+
+.contact-step__actions {
+    margin-top: 24px;
+
+    padding-top: 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    border-top:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+}
+
+
+/* Back */
+
+.contact-step__actions
+.button--secondary {
+    min-width: 120px;
+
+    cursor: pointer;
+}
+
+
+/* Next */
+
+.contact-step__actions
+.button--primary {
+    min-width: 150px;
+
+    cursor: pointer;
+}
+
+
+/* Submit */
+
+.contact-step__submit {
+    min-width: 190px;
+
+    border: 0;
+
+    cursor: pointer;
+}
+
+
+/* ==================================================
+   Disabled
+================================================== */
+
+.contact-form
+input[type="submit"]:disabled {
+    opacity: 0.55;
+
+    cursor:
+        not-allowed;
+
+    transform: none;
+}
+
+
+/* ==================================================
+   CF7 Spinner
+================================================== */
+
+.contact-form
+.wpcf7-spinner {
+    margin:
+        0 0 0 8px;
+
+    vertical-align:
+        middle;
+}
+
+
+/* ==================================================
+   CF7 Response Message
+================================================== */
+
+.contact-form
+.wpcf7-response-output {
+    margin:
+        18px 0 0;
+
+    padding:
+        11px 13px;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    color:
+        var(--color-text);
+
+    background:
+        #111111;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* Success */
+
+.contact-form
+.wpcf7 form.sent
+.wpcf7-response-output,
+.contact-form
+form.sent
+.wpcf7-response-output {
+    border-color:
+        #3e9f6c;
+
+    background:
+        rgba(
+            62,
+            159,
+            108,
+            0.08
+        );
+}
+
+
+/* Error */
+
+.contact-form
+.wpcf7 form.invalid
+.wpcf7-response-output,
+.contact-form
+form.invalid
+.wpcf7-response-output,
+.contact-form
+form.failed
+.wpcf7-response-output {
+    border-color:
+        #ff6245;
+
+    background:
+        rgba(
+            255,
+            98,
+            69,
+            0.06
+        );
+}
+
+
+/* ==================================================
+   Tablet
+================================================== */
+
+@media (max-width: 900px) {
+
+    .contact-form {
+        width:
+            min(
+                100%,
+                680px
+            );
+
+        padding:
+            26px 28px;
+    }
+
+}
+
+
+/* ==================================================
+   Smartphone
+================================================== */
+
+@media (max-width: 600px) {
+
+    /* Container */
+
+    .contact-form {
+        width: 100%;
+
+        padding:
+            22px 16px;
+    }
+
+
+    /* Progress */
+
+    .contact-progress {
+        margin-bottom:
+            18px;
+    }
+
+
+    .contact-progress__meta {
+        gap:
+            12px;
+    }
+
+
+    .contact-progress__step {
+        font-size:
+            10px;
+    }
+
+
+    .contact-progress__name {
+        font-size:
+            11px;
+    }
+
+
+    /* Heading */
+
+    .contact-step__heading {
+        margin-bottom:
+            16px;
+    }
+
+
+    .contact-step__title {
+        font-size:
+            20px;
+    }
+
+
+    /* STEP1 */
+
+    .contact-options {
+        grid-template-columns:
+            1fr;
+
+        gap: 8px;
+    }
+
+
+    .contact-choice {
+        min-height:
+            96px;
+
+        padding:
+            14px;
+    }
+
+
+    .contact-choice::after {
+        top: 12px;
+        right: 12px;
+
+        width: 22px;
+        height: 22px;
+    }
+
+
+    .contact-choice__icon {
+        width: 38px;
+        height: 38px;
+
+        margin-bottom:
+            8px;
+    }
+
+
+    .contact-choice__icon::before {
+        width: 22px;
+        height: 22px;
+    }
+
+
+    .contact-choice
+    .wpcf7-list-item-label {
+        font-size:
+            13px;
+    }
+
+
+    /* Radio */
+
+    .contact-radio-group {
+        grid-template-columns:
+            1fr;
+
+        gap: 7px;
+    }
+
+
+    .contact-radio-group
+    .wpcf7-list-item label {
+        min-height:
+            48px;
+
+        padding:
+            10px 44px
+            10px 12px;
+    }
+
+
+    /* Fields */
+
+    .contact-field {
+        margin-top:
+            14px;
+    }
+
+
+    .contact-input,
+    .contact-select {
+        height:
+            44px;
+    }
+
+
+    .contact-field__textarea {
+        height:
+            88px;
+
+        min-height:
+            88px;
+    }
+
+
+    /* Actions */
+
+    .contact-step__actions {
+        margin-top:
+            20px;
+
+        padding-top:
+            16px;
+
+        flex-direction:
+            column-reverse;
+
+        align-items:
+            stretch;
+
+        gap:
+            8px;
+    }
+
+
+    .contact-step__actions
+    .button,
+    .contact-step__submit {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+
+    /* Turnstile */
+
+    .contact-turnstile,
+    .contact-form
+    .cf-turnstile {
+        overflow-x:
+            auto;
+    }
+
+}
+
+
+/* ==================================================
+   Reduced Motion
+================================================== */
+
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+
+    .contact-step {
+        animation: none;
+    }
+
+
+    .contact-choice,
+    .contact-choice::after,
+    .contact-choice__icon,
+    .contact-radio-group
+    .wpcf7-list-item label,
+    .contact-radio-group
+    .wpcf7-list-item label::after,
+    .contact-progress__current,
+    .contact-progress__steps span {
+        transition: none;
+    }
+
+
+    .contact-choice:hover,
+    .contact-radio-group
+    .wpcf7-list-item
+    label:hover {
+        transform: none;
+    }
+
+}

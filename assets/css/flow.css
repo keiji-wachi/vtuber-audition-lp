@@ -1,0 +1,452 @@
+/**
+ * Flow
+ *
+ * 無料体験レッスンの
+ * 申し込みから体験までの流れ。
+ *
+ * flow.php側で、
+ *
+ * - SVGアイコン
+ * - data-reveal
+ * - data-motion="card"
+ * - data-motion="cta"
+ *
+ * を使用している。
+ */
+
+
+/* ==================================================
+   Flow
+================================================== */
+
+.flow {
+    position: relative;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.015),
+            transparent 40%
+        ),
+        var(--color-surface);
+}
+
+
+/* ==================================================
+   Step List
+================================================== */
+
+.flow__list {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+
+/*
+ * PCではカード同士を線でつなぎ、
+ * 申し込みの流れを視覚的に表現する。
+ */
+.flow__list::before {
+    content: "";
+
+    position: absolute;
+
+    top: 109px;
+
+    left: 8%;
+    right: 8%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(242, 56, 0, 0.25) 12%,
+            var(--color-border) 30%,
+            var(--color-border) 70%,
+            rgba(242, 56, 0, 0.25) 88%,
+            transparent
+        );
+}
+
+
+/* ==================================================
+   Step Card
+================================================== */
+
+.flow-card {
+    position: relative;
+
+    z-index: 1;
+
+    min-height: 310px;
+
+    padding:
+        30px 24px
+        34px;
+
+    text-align: center;
+
+    background:
+        #0d0d0d;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+@media (hover: hover) {
+
+    .flow-card:hover {
+        background:
+            #101010;
+
+        border-color:
+            rgba(242, 56, 0, 0.55);
+    }
+
+}
+
+
+/* ==================================================
+   Step Number
+================================================== */
+
+.flow-card__number {
+    margin-bottom: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    line-height: 1;
+}
+
+
+.flow-card__number span {
+    margin-bottom: 5px;
+
+    color:
+        var(--color-muted);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing:
+        0.15em;
+}
+
+
+.flow-card__number strong {
+    color:
+        var(--color-accent);
+
+    font-size: 34px;
+
+    font-weight: 900;
+
+    letter-spacing:
+        -0.03em;
+}
+
+
+/* ==================================================
+   Icon
+================================================== */
+
+.flow-card__icon {
+    width: 64px;
+    height: 64px;
+
+    margin:
+        0 auto 24px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(242, 56, 0, 0.3);
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(242, 56, 0, 0.06);
+
+    color:
+        var(--color-accent);
+
+    box-shadow:
+        0 0 0
+        rgba(242, 56, 0, 0);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/*
+ * SVGはcurrentColorを使用しているため、
+ * 親要素のcolorで統一管理する。
+ */
+.flow-card__icon svg {
+    width: 28px;
+    height: 28px;
+
+    display: block;
+
+    flex-shrink: 0;
+}
+
+
+@media (hover: hover) {
+
+    .flow-card:hover
+    .flow-card__icon {
+        border-color:
+            rgba(242, 56, 0, 0.7);
+
+        background:
+            rgba(242, 56, 0, 0.11);
+
+        transform:
+            translateY(-2px);
+
+        box-shadow:
+            0 10px 26px
+            rgba(242, 56, 0, 0.08);
+    }
+
+}
+
+
+/* ==================================================
+   Content
+================================================== */
+
+.flow-card__title {
+    margin: 0;
+
+    color:
+        var(--color-text);
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+
+.flow-card__text {
+    margin:
+        14px 0 0;
+
+    color:
+        var(--color-muted);
+
+    font-size: 13px;
+
+    line-height: 1.9;
+}
+
+
+/* ==================================================
+   CTA
+================================================== */
+
+.flow__action {
+    margin-top: 56px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+
+.flow__note {
+    margin: 0;
+
+    color:
+        var(--color-muted);
+
+    font-size: 12px;
+}
+
+
+/* ==================================================
+   Tablet
+================================================== */
+
+@media (max-width: 900px) {
+
+    .flow__list {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+
+
+    /*
+     * 2列表示では一本の横線だと
+     * 不自然になるため非表示。
+     */
+    .flow__list::before {
+        display: none;
+    }
+
+
+    .flow-card {
+        min-height: 290px;
+
+        padding:
+            30px 24px;
+    }
+
+}
+
+
+/* ==================================================
+   Smartphone
+================================================== */
+
+@media (max-width: 600px) {
+
+    .flow__list {
+        grid-template-columns:
+            1fr;
+
+        gap: 16px;
+    }
+
+
+    .flow-card {
+        min-height: auto;
+
+        padding:
+            26px 22px;
+
+        text-align: left;
+    }
+
+
+    .flow-card__number {
+        align-items:
+            flex-start;
+
+        margin-bottom:
+            16px;
+    }
+
+
+    .flow-card__number strong {
+        font-size:
+            30px;
+    }
+
+
+    .flow-card__icon {
+        width: 54px;
+        height: 54px;
+
+        margin:
+            0 0 18px;
+    }
+
+
+    .flow-card__icon svg {
+        width: 25px;
+        height: 25px;
+    }
+
+
+    .flow-card__title {
+        font-size:
+            17px;
+    }
+
+
+    .flow-card__text {
+        margin-top:
+            10px;
+
+        font-size:
+            13px;
+
+        line-height:
+            1.8;
+    }
+
+
+    .flow__action {
+        margin-top:
+            40px;
+    }
+
+
+    .flow__action .button {
+        width: 100%;
+    }
+
+
+    .flow__note {
+        text-align:
+            center;
+    }
+
+}
+
+
+/* ==================================================
+   Reduced Motion
+================================================== */
+
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+
+    .flow-card,
+    .flow-card__icon {
+        transition: none;
+    }
+
+
+    .flow-card:hover,
+    .flow-card:hover
+    .flow-card__icon {
+        transform: none;
+
+        box-shadow: none;
+    }
+
+}

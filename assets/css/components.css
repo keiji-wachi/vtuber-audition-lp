@@ -1,0 +1,79 @@
+/**
+ * 共通コンポーネント
+ *
+ * CTAなど複数セクションで再利用する
+ * UIパーツを管理する。
+ */
+
+
+/* =========================
+   Button
+========================= */
+
+.button {
+    min-height: 58px;
+
+    padding: 0 28px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    border: 1px solid transparent;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+
+/* Primary */
+
+.button--primary {
+    background: var(--color-accent);
+
+    color: var(--color-text);
+}
+
+.button--primary:hover {
+    background: var(--color-accent-hover);
+}
+
+
+/* Secondary */
+
+.button--secondary {
+    border-color: var(--color-border);
+
+    background: rgba(10, 10, 10, 0.7);
+
+    color: var(--color-text);
+}
+
+.button--secondary:hover {
+    border-color: #666666;
+}
+
+
+/* =========================
+   Smartphone
+========================= */
+
+@media (max-width: 600px) {
+
+    .button {
+        width: 100%;
+    }
+}

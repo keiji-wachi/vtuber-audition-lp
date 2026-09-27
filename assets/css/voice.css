@@ -1,0 +1,588 @@
+/**
+ * Voice
+ *
+ * 受講生の声・実績数値を表示するセクション。
+ *
+ * voice.php側で、
+ *
+ * - data-reveal
+ * - data-motion="card"
+ * - data-motion="image"
+ *
+ * を使用している。
+ */
+
+
+/* ==================================================
+   Voice
+================================================== */
+
+.voice {
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(255, 255, 255, 0.02),
+            transparent 38%
+        ),
+        var(--color-bg);
+}
+
+
+/* ==================================================
+   Voice Grid
+================================================== */
+
+.voice__grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap:
+        24px;
+}
+
+
+/* ==================================================
+   Card
+================================================== */
+
+.voice-card {
+    position: relative;
+
+    padding:
+        30px;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    background:
+        #0d0d0d;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+@media (hover: hover) {
+
+    .voice-card:hover {
+        border-color:
+            rgba(255, 255, 255, 0.16);
+
+        background:
+            #111111;
+    }
+
+}
+
+
+/* ==================================================
+   Student Image
+================================================== */
+
+.voice-card__visual {
+    position: relative;
+
+    height:
+        220px;
+
+    margin-bottom:
+        24px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.035);
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(242, 56, 0, 0.10),
+            rgba(242, 56, 0, 0.025) 45%,
+            transparent 72%
+        );
+}
+
+
+/*
+ * 画像エリア上部に
+ * ごく薄いアクセントラインを追加する。
+ */
+.voice-card__visual::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    z-index:
+        2;
+
+    width:
+        60px;
+
+    height:
+        2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--color-accent),
+            transparent
+        );
+
+    pointer-events:
+        none;
+}
+
+
+.voice-card__image {
+    position: relative;
+
+    z-index:
+        1;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        contain;
+
+    filter:
+        saturate(1.03)
+        contrast(1.02);
+}
+
+
+/* ==================================================
+   Stars
+================================================== */
+
+.voice-card__stars {
+    margin-bottom:
+        16px;
+
+    color:
+        var(--color-label);
+
+    font-size:
+        17px;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        0.1em;
+
+    text-shadow:
+        0 0 18px
+        rgba(255, 205, 64, 0.08);
+}
+
+
+/* ==================================================
+   Comment
+================================================== */
+
+.voice-card__text {
+    margin: 0;
+
+    color:
+        #c5c5c5;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.9;
+}
+
+
+/* ==================================================
+   Profile
+================================================== */
+
+.voice-card__profile {
+    margin-top:
+        24px;
+
+    padding-top:
+        20px;
+
+    border-top:
+        1px solid
+        var(--color-border);
+}
+
+
+.voice-card__profile strong {
+    display:
+        block;
+
+    color:
+        var(--color-text);
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+}
+
+
+.voice-card__profile span {
+    display:
+        block;
+
+    margin-top:
+        4px;
+
+    color:
+        var(--color-muted);
+
+    font-size:
+        11px;
+}
+
+
+/* ==================================================
+   Stats
+================================================== */
+
+.voice-stats {
+    margin-top:
+        56px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0, 1fr)
+        );
+
+    border-top:
+        1px solid
+        var(--color-border);
+
+    border-left:
+        1px solid
+        var(--color-border);
+}
+
+
+.voice-stat {
+    position:
+        relative;
+
+    padding:
+        30px 20px;
+
+    overflow:
+        hidden;
+
+    text-align:
+        center;
+
+    border-right:
+        1px solid
+        var(--color-border);
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.005
+        );
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+/*
+ * hover時に下から赤いラインを出す。
+ * 数値自体は動かしすぎない。
+ */
+.voice-stat::after {
+    content: "";
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    bottom:
+        0;
+
+    width:
+        0;
+
+    height:
+        2px;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        var(--color-accent);
+
+    transition:
+        width 0.25s ease;
+}
+
+
+@media (hover: hover) {
+
+    .voice-stat:hover {
+        background:
+            rgba(
+                255,
+                255,
+                255,
+                0.02
+            );
+
+        border-color:
+            rgba(
+                255,
+                255,
+                255,
+                0.11
+            );
+    }
+
+
+    .voice-stat:hover::after {
+        width:
+            44%;
+    }
+
+}
+
+
+.voice-stat strong {
+    display:
+        block;
+
+    color:
+        var(--color-accent);
+
+    font-size:
+        36px;
+
+    font-weight:
+        900;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        -0.03em;
+}
+
+
+.voice-stat span {
+    display:
+        block;
+
+    margin-top:
+        10px;
+
+    color:
+        var(--color-muted);
+
+    font-size:
+        11px;
+
+    line-height:
+        1.5;
+}
+
+
+/* ==================================================
+   Tablet
+================================================== */
+
+@media (max-width: 900px) {
+
+    .voice__grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .voice-card {
+        width:
+            100%;
+
+        max-width:
+            680px;
+
+        margin:
+            0 auto;
+    }
+
+
+    .voice-card__visual {
+        height:
+            320px;
+    }
+
+
+    .voice-stats {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+
+}
+
+
+/* ==================================================
+   Smartphone
+================================================== */
+
+@media (max-width: 600px) {
+
+    .voice__grid {
+        gap:
+            18px;
+    }
+
+
+    .voice-card {
+        padding:
+            22px;
+    }
+
+
+    .voice-card__visual {
+        height:
+            240px;
+
+        margin-bottom:
+            20px;
+    }
+
+
+    .voice-card__stars {
+        margin-bottom:
+            14px;
+
+        font-size:
+            16px;
+    }
+
+
+    .voice-card__text {
+        font-size:
+            13px;
+
+        line-height:
+            1.85;
+    }
+
+
+    .voice-card__profile {
+        margin-top:
+            20px;
+
+        padding-top:
+            18px;
+    }
+
+
+    .voice-stats {
+        margin-top:
+            40px;
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+
+
+    .voice-stat {
+        padding:
+            24px 10px;
+    }
+
+
+    .voice-stat strong {
+        font-size:
+            30px;
+    }
+
+
+    .voice-stat span {
+        font-size:
+            10px;
+    }
+
+}
+
+
+/* ==================================================
+   Reduced Motion
+================================================== */
+
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+
+    .voice-card,
+    .voice-stat,
+    .voice-stat::after {
+        transition:
+            none;
+    }
+
+
+    .voice-stat:hover::after {
+        width:
+            0;
+    }
+
+}

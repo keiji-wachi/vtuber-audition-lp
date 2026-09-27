@@ -1,0 +1,334 @@
+/**
+ * Features
+ *
+ * BEATLABが選ばれる理由を
+ * 6カードで表示するセクション。
+ *
+ * features.php側で、
+ *
+ * - Lucide系SVGアイコン
+ * - data-reveal
+ * - data-motion="card"
+ *
+ * を使用している。
+ */
+
+
+/* ==================================================
+   Features
+================================================== */
+
+.features {
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(255, 255, 255, 0.025),
+            transparent 40%
+        ),
+        var(--color-bg);
+}
+
+
+/* ==================================================
+   Grid
+================================================== */
+
+.features__grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    border-top:
+        1px solid
+        var(--color-border);
+
+    border-left:
+        1px solid
+        var(--color-border);
+}
+
+
+/* ==================================================
+   Card
+================================================== */
+
+.feature-card {
+    position: relative;
+
+    min-height: 250px;
+
+    padding:
+        40px 34px;
+
+    border-right:
+        1px solid
+        var(--color-border);
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.01
+        );
+
+    /*
+     * transform / border / shadowは
+     * motion.css側でも制御している。
+     *
+     * ここでは背景変化だけ
+     * Features固有として追加する。
+     */
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/*
+ * data-motion="card" の共通hoverに加えて、
+ * Featuresでは背景を少し明るくする。
+ */
+@media (hover: hover) {
+
+    .feature-card:hover {
+        background:
+            rgba(
+                255,
+                255,
+                255,
+                0.035
+            );
+    }
+
+}
+
+
+/* ==================================================
+   Icon
+================================================== */
+
+.feature-card__icon {
+    width: 54px;
+    height: 54px;
+
+    margin-bottom: 24px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(242, 56, 0, 0.3);
+
+    background:
+        rgba(242, 56, 0, 0.07);
+
+    color:
+        var(--color-accent);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/*
+ * SVG本体。
+ *
+ * stroke="currentColor" にしているので、
+ * 親要素のcolorで色を管理できる。
+ */
+.feature-card__icon svg {
+    width: 27px;
+    height: 27px;
+
+    display: block;
+
+    flex-shrink: 0;
+}
+
+
+/*
+ * カードhover時に
+ * アイコンもほんの少し強調する。
+ */
+@media (hover: hover) {
+
+    .feature-card:hover
+    .feature-card__icon {
+        border-color:
+            rgba(242, 56, 0, 0.65);
+
+        background:
+            rgba(242, 56, 0, 0.12);
+
+        transform:
+            translateY(-2px);
+
+        box-shadow:
+            0 10px 24px
+            rgba(242, 56, 0, 0.08);
+    }
+
+}
+
+
+/* ==================================================
+   Card Title
+================================================== */
+
+.feature-card__title {
+    margin: 0;
+
+    color:
+        var(--color-text);
+
+    font-size: 20px;
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    letter-spacing:
+        -0.01em;
+}
+
+
+/* ==================================================
+   Card Text
+================================================== */
+
+.feature-card__text {
+    margin:
+        16px 0 0;
+
+    color:
+        var(--color-muted);
+
+    font-size: 14px;
+
+    line-height: 1.9;
+}
+
+
+/* ==================================================
+   Tablet
+================================================== */
+
+@media (max-width: 900px) {
+
+    .features__grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .feature-card {
+        min-height: 230px;
+
+        padding:
+            36px 30px;
+    }
+
+
+    .feature-card__icon {
+        width: 50px;
+        height: 50px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .feature-card__icon svg {
+        width: 25px;
+        height: 25px;
+    }
+
+}
+
+
+/* ==================================================
+   Smartphone
+================================================== */
+
+@media (max-width: 600px) {
+
+    .features__grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .feature-card {
+        min-height: auto;
+
+        padding:
+            30px 22px;
+    }
+
+
+    .feature-card__icon {
+        width: 48px;
+        height: 48px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .feature-card__icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+
+    .feature-card__title {
+        font-size: 18px;
+    }
+
+
+    .feature-card__text {
+        margin-top: 12px;
+
+        font-size: 13px;
+
+        line-height: 1.8;
+    }
+
+}
+
+
+/* ==================================================
+   Reduced Motion
+================================================== */
+
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+
+    .feature-card,
+    .feature-card__icon {
+        transition: none;
+    }
+
+
+    .feature-card:hover,
+    .feature-card:hover
+    .feature-card__icon {
+        transform: none;
+    }
+
+}

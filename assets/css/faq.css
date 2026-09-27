@@ -1,0 +1,475 @@
+/**
+ * FAQ
+ *
+ * よくある質問をアコーディオン形式で表示する。
+ *
+ * - data-revealでスクロール表示
+ * - JSで開閉アニメーション
+ * - aria-expandedで状態管理
+ */
+
+
+/* ==================================================
+   FAQ
+================================================== */
+
+.faq {
+    position: relative;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.01),
+            transparent 40%
+        ),
+        var(--color-surface);
+}
+
+
+/* ==================================================
+   List
+================================================== */
+
+.faq__list {
+    width:
+        min(
+            100%,
+            900px
+        );
+
+    margin:
+        0 auto;
+}
+
+
+/* ==================================================
+   Item
+================================================== */
+
+.faq-item {
+    position: relative;
+
+    border-top:
+        1px solid
+        var(--color-border);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+.faq-item:last-child {
+    border-bottom:
+        1px solid
+        var(--color-border);
+}
+
+
+/*
+ * 開いているFAQをほんの少し強調する。
+ */
+.faq-item:has(
+    .faq-item__question[
+        aria-expanded="true"
+    ]
+) {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.015
+        );
+}
+
+
+/* ==================================================
+   Question
+================================================== */
+
+.faq-item__question {
+    width:
+        100%;
+
+    min-height:
+        76px;
+
+    padding:
+        22px 24px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        24px;
+
+    border:
+        0;
+
+    background:
+        transparent;
+
+    color:
+        var(--color-text);
+
+    font:
+        inherit;
+
+    font-size:
+        15px;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.6;
+
+    text-align:
+        left;
+
+    cursor:
+        pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+@media (hover: hover) {
+
+    .faq-item__question:hover {
+        background:
+            rgba(
+                255,
+                255,
+                255,
+                0.025
+            );
+    }
+
+}
+
+
+/*
+ * 開いている質問は少し白を強める。
+ */
+.faq-item__question[
+    aria-expanded="true"
+] {
+    color:
+        #ffffff;
+}
+
+
+/* keyboard focus */
+.faq-item__question:focus-visible {
+    outline:
+        1px solid
+        var(--color-accent);
+
+    outline-offset:
+        -1px;
+}
+
+
+/* ==================================================
+   Icon
+================================================== */
+
+.faq-item__icon {
+    position:
+        relative;
+
+    flex-shrink:
+        0;
+
+    width:
+        30px;
+
+    height:
+        30px;
+
+    display:
+        block;
+
+    /*
+     * HTML内の「+」文字は非表示にし、
+     * 疑似要素でアイコンを描く。
+     */
+    overflow:
+        hidden;
+
+    color:
+        transparent;
+
+    font-size:
+        0;
+
+    border:
+        1px solid
+        rgba(242, 56, 0, 0.3);
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(242, 56, 0, 0.05);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.3s ease;
+}
+
+
+/*
+ * 横線
+ */
+.faq-item__icon::before {
+    content: "";
+
+    position:
+        absolute;
+
+    top:
+        50%;
+
+    left:
+        50%;
+
+    width:
+        12px;
+
+    height:
+        1.5px;
+
+    background:
+        var(--color-accent);
+
+    transform:
+        translate(-50%, -50%);
+}
+
+
+/*
+ * 縦線
+ */
+.faq-item__icon::after {
+    content: "";
+
+    position:
+        absolute;
+
+    top:
+        50%;
+
+    left:
+        50%;
+
+    width:
+        1.5px;
+
+    height:
+        12px;
+
+    background:
+        var(--color-accent);
+
+    transform:
+        translate(-50%, -50%)
+        scaleY(1);
+
+    transform-origin:
+        center;
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+/*
+ * 開いたときは縦線を消して
+ * 「−」アイコンへ変化。
+ */
+.faq-item__question[
+    aria-expanded="true"
+]
+.faq-item__icon {
+    border-color:
+        rgba(242, 56, 0, 0.7);
+
+    background:
+        rgba(242, 56, 0, 0.11);
+
+    transform:
+        rotate(180deg);
+}
+
+
+.faq-item__question[
+    aria-expanded="true"
+]
+.faq-item__icon::after {
+    transform:
+        translate(-50%, -50%)
+        scaleY(0);
+}
+
+
+@media (hover: hover) {
+
+    .faq-item__question:hover
+    .faq-item__icon {
+        border-color:
+            rgba(242, 56, 0, 0.65);
+
+        background:
+            rgba(242, 56, 0, 0.09);
+    }
+
+}
+
+
+/* ==================================================
+   Answer
+================================================== */
+
+.faq-item__answer {
+    height:
+        0;
+
+    overflow:
+        hidden;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.018
+        );
+
+    transition:
+        height 0.35s ease;
+}
+
+
+/*
+ * hidden属性が付いた状態では
+ * 完全に非表示。
+ */
+.faq-item__answer[hidden] {
+    display:
+        none;
+}
+
+
+.faq-item__answer-inner {
+    padding:
+        4px 64px
+        28px 24px;
+}
+
+
+.faq-item__answer p {
+    margin:
+        0;
+
+    color:
+        var(--color-muted);
+
+    font-size:
+        14px;
+
+    line-height:
+        2;
+}
+
+
+/* ==================================================
+   Smartphone
+================================================== */
+
+@media (max-width: 600px) {
+
+    .faq-item__question {
+        min-height:
+            68px;
+
+        padding:
+            18px 16px;
+
+        gap:
+            16px;
+
+        font-size:
+            14px;
+    }
+
+
+    .faq-item__icon {
+        width:
+            28px;
+
+        height:
+            28px;
+    }
+
+
+    .faq-item__icon::before {
+        width:
+            11px;
+    }
+
+
+    .faq-item__icon::after {
+        height:
+            11px;
+    }
+
+
+    .faq-item__answer-inner {
+        padding:
+            2px 48px
+            24px 16px;
+    }
+
+
+    .faq-item__answer p {
+        font-size:
+            13px;
+
+        line-height:
+            1.9;
+    }
+
+}
+
+
+/* ==================================================
+   Reduced Motion
+================================================== */
+
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+
+    .faq-item,
+    .faq-item__question,
+    .faq-item__icon,
+    .faq-item__icon::after,
+    .faq-item__answer {
+        transition:
+            none;
+    }
+
+}

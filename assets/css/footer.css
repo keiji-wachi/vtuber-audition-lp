@@ -1,0 +1,298 @@
+/**
+ * Footer
+ *
+ * LP最下部のスクール情報・リンク・CTAを表示する。
+ */
+
+
+/* =========================
+   Footer
+========================= */
+
+.site-footer {
+    background: #080808;
+
+    border-top:
+        1px solid var(--color-border);
+}
+
+
+/* =========================
+   Inner
+========================= */
+
+.site-footer__inner {
+    width: min(
+        calc(100% - 48px),
+        var(--content-width)
+    );
+
+    margin: 0 auto;
+
+    padding:
+        72px 0 56px;
+
+    display: grid;
+
+    grid-template-columns:
+        1.1fr 2fr;
+
+    gap: 80px;
+}
+
+
+/* =========================
+   Brand
+========================= */
+
+.site-footer__logo {
+    display: flex;
+    align-items: baseline;
+
+    width: fit-content;
+
+    text-decoration: none;
+
+    font-weight: 900;
+}
+
+.site-footer__logo-beat {
+    color: var(--color-text);
+
+    font-size: 24px;
+}
+
+.site-footer__logo-lab {
+    color: var(--color-accent);
+
+    font-size: 24px;
+}
+
+.site-footer__logo-sub {
+    margin-left: 8px;
+
+    color: var(--color-muted);
+
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.site-footer__description {
+    max-width: 300px;
+
+    margin:
+        22px 0
+        0;
+
+    color: var(--color-muted);
+
+    font-size: 12px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================
+   Information
+========================= */
+
+.site-footer__info {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 48px;
+}
+
+
+/* =========================
+   Column
+========================= */
+
+.site-footer__heading {
+    margin:
+        0 0
+        18px;
+
+    color: var(--color-text);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+}
+
+.site-footer__list {
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
+
+    color: var(--color-muted);
+
+    font-size: 11px;
+
+    line-height: 2;
+}
+
+.site-footer__list a {
+    color: var(--color-muted);
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease;
+}
+
+.site-footer__list a:hover {
+    color: var(--color-text);
+}
+
+
+/* =========================
+   Contact
+========================= */
+
+.site-footer__contact-text {
+    margin:
+        0 0
+        18px;
+
+    color: var(--color-muted);
+
+    font-size: 12px;
+}
+
+.site-footer__button {
+    min-height: 46px;
+
+    padding:
+        0 18px;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   Bottom
+========================= */
+
+.site-footer__bottom {
+    border-top:
+        1px solid var(--color-border);
+}
+
+.site-footer__bottom-inner {
+    width: min(
+        calc(100% - 48px),
+        var(--content-width)
+    );
+
+    min-height: 72px;
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 32px;
+}
+
+.site-footer__bottom p {
+    margin: 0;
+
+    color: #555555;
+
+    font-size: 10px;
+}
+
+.site-footer__legal {
+    display: flex;
+
+    gap: 24px;
+}
+
+.site-footer__legal a {
+    color: #666666;
+
+    font-size: 10px;
+
+    text-decoration: none;
+}
+
+.site-footer__legal a:hover {
+    color: var(--color-text);
+}
+
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 900px) {
+
+    .site-footer__inner {
+        grid-template-columns: 1fr;
+
+        gap: 48px;
+    }
+
+    .site-footer__info {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+}
+
+
+/* =========================
+   Smartphone
+========================= */
+
+@media (max-width: 600px) {
+
+    .site-footer__inner {
+        width: min(
+            calc(100% - 32px),
+            var(--content-width)
+        );
+
+        padding:
+            56px 0 42px;
+    }
+
+    .site-footer__info {
+        grid-template-columns: 1fr;
+
+        gap: 36px;
+    }
+
+    .site-footer__button {
+        width: 100%;
+    }
+
+    .site-footer__bottom-inner {
+        width: min(
+            calc(100% - 32px),
+            var(--content-width)
+        );
+
+        padding:
+            22px 0;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+    }
+
+    .site-footer__legal {
+        flex-wrap: wrap;
+
+        gap:
+            8px 18px;
+    }
+}

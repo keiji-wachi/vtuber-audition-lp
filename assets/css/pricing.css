@@ -1,0 +1,570 @@
+/**
+ * Pricing
+ *
+ * レッスンプラン・料金を表示するセクション。
+ *
+ * pricing.php側で、
+ *
+ * - SVGチェックアイコン
+ * - data-reveal
+ * - data-motion="card"
+ * - data-motion="cta"
+ *
+ * を使用している。
+ */
+
+
+/* ==================================================
+   Pricing
+================================================== */
+
+.pricing {
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 50% 10%,
+            rgba(242, 56, 0, 0.05),
+            transparent 35%
+        ),
+        var(--color-bg);
+}
+
+
+/* ==================================================
+   Grid
+================================================== */
+
+.pricing__grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 24px;
+
+    align-items: stretch;
+}
+
+
+/* ==================================================
+   Price Card
+================================================== */
+
+.price-card {
+    position: relative;
+
+    padding:
+        40px 34px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    background:
+        #0d0d0d;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+@media (hover: hover) {
+
+    .price-card:hover {
+        background:
+            #101010;
+
+        border-color:
+            rgba(255, 255, 255, 0.18);
+    }
+
+}
+
+
+/* ==================================================
+   Featured Plan
+================================================== */
+
+.price-card--featured {
+    border-color:
+        rgba(242, 56, 0, 0.9);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(242, 56, 0, 0.045),
+            transparent 32%
+        ),
+        #0d0d0d;
+
+    box-shadow:
+        0 0 42px
+        rgba(242, 56, 0, 0.08);
+}
+
+
+@media (hover: hover) {
+
+    .price-card--featured:hover {
+        border-color:
+            var(--color-accent);
+
+        background:
+            linear-gradient(
+                180deg,
+                rgba(242, 56, 0, 0.07),
+                transparent 35%
+            ),
+            #101010;
+
+        box-shadow:
+            0 18px 46px
+            rgba(242, 56, 0, 0.11);
+    }
+
+}
+
+
+.price-card__recommend {
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    margin: 0;
+
+    padding:
+        7px 18px;
+
+    transform:
+        translate(-50%, -50%);
+
+    background:
+        var(--color-accent);
+
+    color:
+        #ffffff;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing:
+        0.12em;
+
+    white-space:
+        nowrap;
+
+    box-shadow:
+        0 8px 22px
+        rgba(242, 56, 0, 0.22);
+}
+
+
+/* ==================================================
+   Card Header
+================================================== */
+
+.price-card__label {
+    margin:
+        0 0 12px;
+
+    color:
+        var(--color-label);
+
+    font-size:
+        11px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.12em;
+}
+
+
+.price-card__title {
+    margin: 0;
+
+    color:
+        var(--color-text);
+
+    font-size:
+        24px;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.4;
+}
+
+
+.price-card__description {
+    min-height:
+        48px;
+
+    margin:
+        14px 0 0;
+
+    color:
+        var(--color-muted);
+
+    font-size:
+        13px;
+
+    line-height:
+        1.8;
+}
+
+
+/* ==================================================
+   Price
+================================================== */
+
+.price-card__price {
+    margin-top:
+        28px;
+
+    display: flex;
+
+    align-items:
+        flex-start;
+
+    line-height: 1;
+}
+
+
+.price-card__currency {
+    margin-top:
+        10px;
+
+    margin-right:
+        4px;
+
+    color:
+        var(--color-muted);
+
+    font-size:
+        18px;
+
+    font-weight:
+        600;
+}
+
+
+.price-card__price strong {
+    color:
+        var(--color-text);
+
+    font-size:
+        clamp(
+            46px,
+            5vw,
+            64px
+        );
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        -0.045em;
+}
+
+
+.price-card--featured
+.price-card__price strong {
+    color:
+        #ffffff;
+}
+
+
+.price-card__unit {
+    margin:
+        8px 0 0;
+
+    color:
+        var(--color-muted);
+
+    font-size:
+        12px;
+}
+
+
+/* ==================================================
+   Feature List
+================================================== */
+
+.price-card__features {
+    margin:
+        32px 0;
+
+    padding:
+        28px 0 0;
+
+    display: flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        14px;
+
+    border-top:
+        1px solid
+        var(--color-border);
+
+    list-style:
+        none;
+
+    color:
+        #d5d5d5;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.6;
+}
+
+
+.price-card__features li {
+    display: flex;
+
+    align-items:
+        flex-start;
+
+    gap:
+        10px;
+}
+
+
+/*
+ * PHP側のSVGチェック。
+ */
+.price-card__features svg {
+    width:
+        16px;
+
+    height:
+        16px;
+
+    margin-top:
+        2px;
+
+    flex-shrink:
+        0;
+
+    color:
+        var(--color-accent);
+}
+
+
+.price-card__features span {
+    display:
+        block;
+}
+
+
+/* ==================================================
+   Button
+================================================== */
+
+.price-card__button {
+    width:
+        100%;
+
+    margin-top:
+        auto;
+}
+
+
+/* ==================================================
+   Note
+================================================== */
+
+.pricing__note {
+    margin:
+        28px 0 0;
+
+    color:
+        var(--color-muted);
+
+    font-size:
+        11px;
+
+    line-height:
+        1.7;
+
+    text-align:
+        center;
+}
+
+
+/* ==================================================
+   Tablet
+================================================== */
+
+@media (max-width: 900px) {
+
+    .pricing__grid {
+        grid-template-columns:
+            1fr;
+
+        max-width:
+            620px;
+
+        margin:
+            0 auto;
+
+        gap:
+            28px;
+    }
+
+
+    /*
+     * Tablet以下ではおすすめプランを
+     * 最初に見せる。
+     */
+    .price-card--featured {
+        order:
+            -1;
+    }
+
+
+    .price-card__description {
+        min-height:
+            auto;
+    }
+
+
+    .price-card {
+        padding:
+            38px 32px;
+    }
+
+}
+
+
+/* ==================================================
+   Smartphone
+================================================== */
+
+@media (max-width: 600px) {
+
+    .pricing__grid {
+        gap:
+            24px;
+    }
+
+
+    .price-card {
+        padding:
+            32px 22px;
+    }
+
+
+    .price-card__recommend {
+        padding:
+            6px 14px;
+
+        font-size:
+            9px;
+    }
+
+
+    .price-card__title {
+        font-size:
+            21px;
+    }
+
+
+    .price-card__description {
+        margin-top:
+            10px;
+    }
+
+
+    .price-card__price {
+        margin-top:
+            24px;
+    }
+
+
+    .price-card__price strong {
+        font-size:
+            48px;
+    }
+
+
+    .price-card__currency {
+        margin-top:
+            8px;
+
+        font-size:
+            16px;
+    }
+
+
+    .price-card__features {
+        margin:
+            26px 0;
+
+        padding-top:
+            24px;
+
+        gap:
+            12px;
+    }
+
+
+    .price-card__features svg {
+        width:
+            15px;
+
+        height:
+            15px;
+    }
+
+
+    .pricing__note {
+        margin-top:
+            24px;
+    }
+
+}
+
+
+/* ==================================================
+   Reduced Motion
+================================================== */
+
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+
+    .price-card {
+        transition:
+            none;
+    }
+
+
+    .price-card:hover,
+    .price-card--featured:hover {
+        transform:
+            none;
+
+        box-shadow:
+            none;
+    }
+
+}

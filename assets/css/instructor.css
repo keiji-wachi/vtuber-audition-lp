@@ -1,0 +1,702 @@
+/**
+ * Instructor
+ *
+ * 講師紹介セクション。
+ *
+ * 透過イラストとプロフィールを大きく配置し、
+ * スクールの個性と信頼感を訴求する。
+ *
+ * instructor.php側で、
+ *
+ * - data-reveal
+ * - data-motion="image"
+ * - data-motion="cta"
+ *
+ * を使用している。
+ */
+
+
+/* ==================================================
+   Instructor
+================================================== */
+
+.instructor {
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 20% 50%,
+            rgba(242, 56, 0, 0.035),
+            transparent 35%
+        ),
+        var(--color-surface);
+}
+
+
+/* ==================================================
+   Content
+================================================== */
+
+.instructor__content {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    align-items:
+        stretch;
+
+    gap:
+        72px;
+}
+
+
+/* ==================================================
+   Visual
+================================================== */
+
+/*
+ * 透過PNGの講師イラストを表示するエリア。
+ *
+ * coverではなく画像全体を見せ、
+ * 虎とドラムセットをトリミングしない。
+ */
+.instructor__visual {
+    position: relative;
+
+    min-height:
+        620px;
+
+    display: flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    overflow:
+        hidden;
+
+    padding:
+        40px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.04);
+
+    background:
+        radial-gradient(
+            circle at 50% 48%,
+            rgba(242, 56, 0, 0.11) 0%,
+            rgba(242, 56, 0, 0.045) 34%,
+            transparent 68%
+        ),
+        rgba(255, 255, 255, 0.008);
+}
+
+
+/*
+ * 背景に薄いアクセントラインを追加。
+ */
+.instructor__visual::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width:
+        80px;
+
+    height:
+        2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--color-accent),
+            transparent
+        );
+
+    pointer-events:
+        none;
+}
+
+
+/*
+ * イラスト下部を背景へ自然になじませる。
+ */
+.instructor__visual::after {
+    content: "";
+
+    position: absolute;
+
+    inset:
+        auto 0 0;
+
+    height:
+        30%;
+
+    z-index:
+        0;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(0, 0, 0, 0.2)
+        );
+
+    pointer-events:
+        none;
+}
+
+
+/* ==================================================
+   Instructor Image
+================================================== */
+
+.instructor__image {
+    position: relative;
+
+    z-index:
+        1;
+
+    width:
+        100%;
+
+    max-width:
+        620px;
+
+    height:
+        auto;
+
+    object-fit:
+        contain;
+
+    filter:
+        saturate(1.05)
+        contrast(1.03);
+
+    /*
+     * hover時のtransformは
+     * motion.cssのdata-motion="image"で管理する。
+     */
+}
+
+
+/* ==================================================
+   Experience Badge
+================================================== */
+
+.instructor__experience {
+    position: absolute;
+
+    left:
+        28px;
+
+    bottom:
+        28px;
+
+    z-index:
+        2;
+
+    min-width:
+        150px;
+
+    padding:
+        18px 22px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.07);
+
+    border-left:
+        3px solid
+        var(--color-accent);
+
+    background:
+        rgba(8, 8, 8, 0.9);
+
+    backdrop-filter:
+        blur(8px);
+
+    box-shadow:
+        0 12px 30px
+        rgba(0, 0, 0, 0.2);
+}
+
+
+.instructor__experience strong {
+    display:
+        block;
+
+    color:
+        var(--color-text);
+
+    font-size:
+        36px;
+
+    font-weight:
+        900;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        -0.03em;
+}
+
+
+.instructor__experience span {
+    display:
+        block;
+
+    margin-top:
+        7px;
+
+    color:
+        var(--color-muted);
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.12em;
+}
+
+
+/* ==================================================
+   Profile
+================================================== */
+
+.instructor__profile {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        center;
+}
+
+
+/* ==================================================
+   Role
+================================================== */
+
+.instructor__role {
+    margin:
+        0 0 14px;
+
+    color:
+        var(--color-label);
+
+    font-size:
+        11px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.14em;
+}
+
+
+/* ==================================================
+   Name
+================================================== */
+
+.instructor__name {
+    margin:
+        0 0 34px;
+
+    color:
+        var(--color-text);
+
+    font-size:
+        clamp(
+            34px,
+            4vw,
+            52px
+        );
+
+    font-weight:
+        900;
+
+    line-height:
+        1.15;
+
+    letter-spacing:
+        -0.03em;
+}
+
+
+.instructor__name span {
+    display:
+        block;
+
+    margin-top:
+        10px;
+
+    color:
+        var(--color-muted);
+
+    font-size:
+        15px;
+
+    font-weight:
+        500;
+
+    letter-spacing:
+        0.05em;
+}
+
+
+/* ==================================================
+   Message
+================================================== */
+
+.instructor__message {
+    margin:
+        0 0 18px;
+
+    color:
+        #c6c6c6;
+
+    font-size:
+        14px;
+
+    line-height:
+        2;
+}
+
+
+/* ==================================================
+   Career
+================================================== */
+
+.instructor__career {
+    margin-top:
+        28px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    border-top:
+        1px solid
+        var(--color-border);
+
+    border-left:
+        1px solid
+        var(--color-border);
+}
+
+
+.instructor__career-item {
+    position:
+        relative;
+
+    padding:
+        22px;
+
+    overflow:
+        hidden;
+
+    border-right:
+        1px solid
+        var(--color-border);
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.008
+        );
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+/*
+ * 経歴項目はカードほど大きく動かさず、
+ * 背景とアクセントだけ変化させる。
+ */
+.instructor__career-item::before {
+    content: "";
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    top:
+        0;
+
+    width:
+        2px;
+
+    height:
+        0;
+
+    background:
+        var(--color-accent);
+
+    transition:
+        height 0.25s ease;
+}
+
+
+@media (hover: hover) {
+
+    .instructor__career-item:hover {
+        background:
+            rgba(
+                255,
+                255,
+                255,
+                0.025
+            );
+
+        border-color:
+            rgba(
+                255,
+                255,
+                255,
+                0.12
+            );
+    }
+
+
+    .instructor__career-item:hover::before {
+        height:
+            100%;
+    }
+
+}
+
+
+.instructor__career-label {
+    display:
+        block;
+
+    margin-bottom:
+        8px;
+
+    color:
+        var(--color-muted);
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.13em;
+}
+
+
+.instructor__career-item strong {
+    color:
+        var(--color-text);
+
+    font-size:
+        13px;
+
+    line-height:
+        1.6;
+}
+
+
+/* ==================================================
+   CTA
+================================================== */
+
+.instructor__action {
+    margin-top:
+        34px;
+}
+
+
+/* ==================================================
+   Tablet
+================================================== */
+
+@media (max-width: 900px) {
+
+    .instructor__content {
+        grid-template-columns:
+            1fr;
+
+        gap:
+            48px;
+    }
+
+
+    .instructor__visual {
+        min-height:
+            520px;
+
+        padding:
+            32px;
+    }
+
+
+    .instructor__image {
+        max-width:
+            560px;
+    }
+
+
+    .instructor__profile {
+        width:
+            100%;
+
+        max-width:
+            720px;
+
+        margin:
+            0 auto;
+    }
+
+}
+
+
+/* ==================================================
+   Smartphone
+================================================== */
+
+@media (max-width: 600px) {
+
+    .instructor__content {
+        gap:
+            36px;
+    }
+
+
+    .instructor__visual {
+        min-height:
+            360px;
+
+        padding:
+            20px;
+    }
+
+
+    .instructor__image {
+        max-width:
+            100%;
+    }
+
+
+    .instructor__experience {
+        left:
+            16px;
+
+        bottom:
+            16px;
+
+        min-width:
+            130px;
+
+        padding:
+            15px 18px;
+    }
+
+
+    .instructor__experience strong {
+        font-size:
+            30px;
+    }
+
+
+    .instructor__experience span {
+        font-size:
+            8px;
+    }
+
+
+    .instructor__name {
+        margin-bottom:
+            26px;
+
+        font-size:
+            34px;
+    }
+
+
+    .instructor__message {
+        font-size:
+            13px;
+
+        line-height:
+            1.9;
+    }
+
+
+    .instructor__career {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .instructor__career-item {
+        padding:
+            18px;
+    }
+
+
+    .instructor__action .button {
+        width:
+            100%;
+    }
+
+}
+
+
+/* ==================================================
+   Reduced Motion
+================================================== */
+
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+
+    .instructor__career-item,
+    .instructor__career-item::before {
+        transition:
+            none;
+    }
+
+
+    .instructor__career-item:hover::before {
+        height:
+            0;
+    }
+
+}

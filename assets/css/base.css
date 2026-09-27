@@ -1,0 +1,86 @@
+/**
+ * BEATLAB Drum School LP
+ *
+ * サイト全体で使用する基本設定。
+ * 色・横幅・余白などの共通値もここで管理する。
+ */
+
+
+/* =========================
+   Design Tokens
+========================= */
+
+:root {
+    --color-bg: #080808;
+    --color-surface: #111111;
+
+    --color-text: #ffffff;
+    --color-muted: #a0a0a0;
+
+    --color-accent: #f23800;
+    --color-accent-hover: #ff4a12;
+
+    --color-label: #ffd400;
+    --color-border: #333333;
+
+    --content-width: 1200px;
+
+    --header-height: 72px;
+
+    --section-space: 120px;
+}
+
+
+/* =========================
+   Reset / Base
+========================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    background: var(--color-bg);
+    color: var(--color-text);
+
+    font-family:
+        "Noto Sans JP",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        Arial,
+        sans-serif;
+
+    line-height: 1.7;
+}
+
+a {
+    color: inherit;
+}
+
+img {
+    display: block;
+
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* =========================
+   Smartphone
+========================= */
+
+@media (max-width: 600px) {
+
+    :root {
+        --header-height: 64px;
+        --section-space: 88px;
+    }
+}

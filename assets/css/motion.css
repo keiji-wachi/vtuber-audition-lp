@@ -1,0 +1,261 @@
+/**
+ * Motion
+ *
+ * LP全体で共通利用する
+ * スクロールReveal / Hoverアニメーション。
+ *
+ * HTML側では、
+ *
+ * data-reveal="up"
+ * data-reveal="left"
+ * data-reveal="right"
+ * data-reveal="scale"
+ *
+ * のように指定する。
+ *
+ * JavaScriptが正常に動かなかった場合でも
+ * コンテンツが消えないよう、
+ * html.reveal-ready が付いた場合のみ
+ * 初期非表示にする。
+ */
+
+
+/* ==================================================
+   Reveal Base
+================================================== */
+
+.reveal-ready
+[data-reveal] {
+    opacity: 0;
+
+    transition:
+        opacity 0.55s ease,
+        transform 0.55s ease;
+
+    transition-delay:
+        var(--reveal-delay, 0ms);
+
+    will-change:
+        opacity,
+        transform;
+}
+
+
+/* ==================================================
+   Fade Up
+================================================== */
+
+.reveal-ready
+[data-reveal="up"] {
+    transform:
+        translateY(18px);
+}
+
+
+/* ==================================================
+   Fade Down
+================================================== */
+
+.reveal-ready
+[data-reveal="down"] {
+    transform:
+        translateY(-18px);
+}
+
+
+/* ==================================================
+   Fade Left
+================================================== */
+
+.reveal-ready
+[data-reveal="left"] {
+    transform:
+        translateX(20px);
+}
+
+
+/* ==================================================
+   Fade Right
+================================================== */
+
+.reveal-ready
+[data-reveal="right"] {
+    transform:
+        translateX(-20px);
+}
+
+
+/* ==================================================
+   Scale
+================================================== */
+
+.reveal-ready
+[data-reveal="scale"] {
+    transform:
+        scale(0.97);
+}
+
+
+/* ==================================================
+   Fade Only
+================================================== */
+
+.reveal-ready
+[data-reveal="fade"] {
+    transform: none;
+}
+
+
+/* ==================================================
+   Visible
+================================================== */
+
+.reveal-ready
+[data-reveal].is-visible {
+    opacity: 1;
+
+    transform:
+        translate3d(0, 0, 0)
+        scale(1);
+}
+
+
+/* ==================================================
+   Card Hover
+================================================== */
+
+/*
+ * カード系に
+ *
+ * data-motion="card"
+ *
+ * を指定すると
+ * 共通hover演出を適用する。
+ */
+[data-motion="card"] {
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+@media (hover: hover) {
+
+    [data-motion="card"]:hover {
+        transform:
+            translateY(-4px);
+
+        border-color:
+            rgba(255, 255, 255, 0.18);
+
+        box-shadow:
+            0 16px 36px
+            rgba(0, 0, 0, 0.2);
+    }
+
+}
+
+
+/* ==================================================
+   CTA Hover
+================================================== */
+
+/*
+ * CTAに
+ *
+ * data-motion="cta"
+ *
+ * を付与する。
+ */
+[data-motion="cta"] {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+
+@media (hover: hover) {
+
+    [data-motion="cta"]:hover {
+        transform:
+            translateY(-2px);
+
+        filter:
+            brightness(1.06);
+
+        box-shadow:
+            0 12px 28px
+            rgba(242, 56, 0, 0.2);
+    }
+
+}
+
+
+/* ==================================================
+   Image Hover
+================================================== */
+
+[data-motion="image"] {
+    overflow: hidden;
+}
+
+
+[data-motion="image"] img {
+    transition:
+        transform 0.45s ease;
+}
+
+
+@media (hover: hover) {
+
+    [data-motion="image"]:hover img {
+        transform:
+            scale(1.025);
+    }
+
+}
+
+
+/* ==================================================
+   Reduced Motion
+================================================== */
+
+/*
+ * OS側で「視差効果を減らす」設定が
+ * 有効なユーザーにはアニメーションを行わない。
+ */
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+
+    .reveal-ready
+    [data-reveal] {
+        opacity: 1;
+
+        transform: none;
+
+        transition: none;
+    }
+
+
+    [data-motion="card"],
+    [data-motion="cta"],
+    [data-motion="image"] img {
+        transition: none;
+    }
+
+
+    [data-motion="card"]:hover,
+    [data-motion="cta"]:hover,
+    [data-motion="image"]:hover img {
+        transform: none;
+
+        box-shadow: none;
+
+        filter: none;
+    }
+
+}
